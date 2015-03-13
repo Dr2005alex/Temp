@@ -262,11 +262,14 @@ function bindHandlers() {
 			return ajaxError;
 		});
 		$('body').on('click', 'a.ajax', function() {
-                        if(ajaxForm){
+                    
+                        var tmp_hash = window.location.hash;
+                        window.location.hash = ajaxMakeHash($(this).attr('href').replace(/#.*$/, ''), $(this).attr('rel'));
+                        
+                        if(ajaxForm && tmp_hash === window.location.hash){
+                           
                             ajaxPageLoad(window.location.hash.replace(/^#/, ''));
                             ajaxForm = false;
-                        }else{
-                            window.location.hash = ajaxMakeHash($(this).attr('href').replace(/#.*$/, ''), $(this).attr('rel'));
                         }
 			return ajaxError;
 		});
